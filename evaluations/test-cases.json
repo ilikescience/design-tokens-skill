@@ -1,0 +1,133 @@
+{
+  "description": "Evaluation scenarios for the design-tokens skill",
+  "evaluations": [
+    {
+      "id": "create-color-token",
+      "name": "Create a color token in DTCG format",
+      "query": "Create a design token for a brand blue color (#2563eb) in DTCG format",
+      "expected_behavior": [
+        "Uses the structured color object format with colorSpace and components",
+        "Uses 'srgb' color space with normalized 0-1 values",
+        "Includes the hex property as a fallback",
+        "Sets $type to 'color'",
+        "Produces valid JSON that matches DTCG specification"
+      ],
+      "example_output": {
+        "brand-blue": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [0.145, 0.388, 0.922],
+            "hex": "#2563eb"
+          }
+        }
+      }
+    },
+    {
+      "id": "create-spacing-scale",
+      "name": "Create a spacing scale",
+      "query": "Create a spacing scale based on an 8px grid with sizes xs through xl",
+      "expected_behavior": [
+        "Uses dimension type with value/unit object structure",
+        "Uses 'px' as the unit",
+        "Creates hierarchical group structure",
+        "Applies $type at the group level for inheritance",
+        "Follows 8px grid (4, 8, 16, 24, 32 or similar progression)"
+      ]
+    },
+    {
+      "id": "setup-theme-resolver",
+      "name": "Set up a light/dark theme resolver",
+      "query": "Help me set up a resolver configuration for light and dark themes",
+      "expected_behavior": [
+        "Creates resolver with version '2025.10'",
+        "Defines sets for base tokens",
+        "Creates theme modifier with light and dark contexts",
+        "Sets appropriate default",
+        "Configures resolutionOrder correctly",
+        "Uses $ref syntax for file references"
+      ]
+    },
+    {
+      "id": "validate-token-file",
+      "name": "Validate a token file for errors",
+      "query": "Check this token file for DTCG compliance issues: {\"colors\": {\"primary\": {\"$value\": \"#ff0000\"}}}",
+      "expected_behavior": [
+        "Identifies that string hex colors are not valid in latest DTCG spec",
+        "Explains the correct structured color format",
+        "Notes missing $type property",
+        "Provides corrected version using colorSpace/components structure"
+      ]
+    },
+    {
+      "id": "convert-hex-to-dtcg",
+      "name": "Convert hex colors to DTCG format",
+      "query": "Convert these hex colors to DTCG format: #ff6b6b, #4ecdc4, #45b7d1",
+      "expected_behavior": [
+        "Converts each hex to srgb colorSpace with normalized components",
+        "Includes original hex as fallback",
+        "Provides proper token structure with $type and $value",
+        "Correctly calculates RGB components (0-1 range)"
+      ]
+    },
+    {
+      "id": "create-typography-token",
+      "name": "Create typography tokens",
+      "query": "Create a typography token for body text: Inter font, 16px size, 400 weight, 1.5 line height",
+      "expected_behavior": [
+        "Uses typography composite type",
+        "Includes fontFamily as string or array",
+        "Uses dimension object for fontSize",
+        "Uses numeric weight (400) or string equivalent",
+        "Sets lineHeight as unitless number"
+      ]
+    },
+    {
+      "id": "create-shadow-token",
+      "name": "Create a shadow/elevation token",
+      "query": "Create a shadow token for a card elevation with subtle shadow",
+      "expected_behavior": [
+        "Uses shadow type",
+        "Includes color with alpha for shadow color",
+        "Uses dimension objects for offsetX, offsetY, blur, spread",
+        "Sets inset to false for drop shadow",
+        "Uses reasonable values for subtle elevation"
+      ]
+    },
+    {
+      "id": "setup-token-aliasing",
+      "name": "Set up token aliasing/references",
+      "query": "I have primitive colors, how do I create semantic tokens that reference them?",
+      "expected_behavior": [
+        "Explains curly brace reference syntax",
+        "Shows dot-notation path format",
+        "Demonstrates semantic layer referencing primitives",
+        "Mentions that $type can be inherited or explicit",
+        "Warns about circular reference prohibition"
+      ]
+    },
+    {
+      "id": "jq-extract-colors",
+      "name": "Use jq to extract color tokens",
+      "query": "How can I use jq to list all color tokens from my token file?",
+      "expected_behavior": [
+        "Provides working jq command",
+        "Uses recursive descent operator (..) correctly",
+        "Filters for objects with $value and $type of color",
+        "Command syntax is valid and executable"
+      ]
+    },
+    {
+      "id": "resolver-multi-modifier",
+      "name": "Create resolver with multiple modifiers",
+      "query": "Set up a resolver with theme (light/dark), density (comfortable/compact), and motion (full/reduced) modifiers",
+      "expected_behavior": [
+        "Creates three separate modifiers",
+        "Each modifier has appropriate contexts",
+        "Sets sensible defaults for each",
+        "Resolution order places modifiers after base sets",
+        "Explains how inputs work for selecting contexts"
+      ]
+    }
+  ]
+}

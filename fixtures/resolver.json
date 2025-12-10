@@ -1,0 +1,34 @@
+{
+  "name": "design-system",
+  "version": "2025.10",
+  "description": "Example design system with light/dark theme support",
+  "sets": {
+    "primitives": {
+      "description": "Raw design values - colors, spacing, typography scales",
+      "sources": [
+        { "$ref": "primitives.tokens.json" }
+      ]
+    },
+    "semantic": {
+      "description": "Purpose-driven token aliases",
+      "sources": [
+        { "$ref": "semantic.tokens.json" }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "description": "Visual theme affecting colors and shadows",
+      "contexts": {
+        "light": [{ "$ref": "themes/light.tokens.json" }],
+        "dark": [{ "$ref": "themes/dark.tokens.json" }]
+      },
+      "default": "light"
+    }
+  },
+  "resolutionOrder": [
+    { "$ref": "#/sets/primitives" },
+    { "$ref": "#/sets/semantic" },
+    { "$ref": "#/modifiers/theme" }
+  ]
+}

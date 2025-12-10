@@ -1,0 +1,107 @@
+{
+  "color": {
+    "$type": "color",
+    "blue": {
+      "50": {
+        "$value": {"colorSpace": "srgb", "components": [0.94, 0.96, 1], "hex": "#eff6ff"}
+      },
+      "100": {
+        "$value": {"colorSpace": "srgb", "components": [0.86, 0.92, 0.99], "hex": "#dbeafe"}
+      },
+      "500": {
+        "$value": {"colorSpace": "srgb", "components": [0.23, 0.51, 0.96], "hex": "#3b82f6"}
+      },
+      "600": {
+        "$value": {"colorSpace": "srgb", "components": [0.15, 0.39, 0.92], "hex": "#2563eb"}
+      },
+      "700": {
+        "$value": {"colorSpace": "srgb", "components": [0.11, 0.31, 0.85], "hex": "#1d4ed8"}
+      },
+      "900": {
+        "$value": {"colorSpace": "srgb", "components": [0.12, 0.23, 0.45], "hex": "#1e3a5f"}
+      }
+    },
+    "gray": {
+      "50": {
+        "$value": {"colorSpace": "srgb", "components": [0.98, 0.98, 0.98], "hex": "#fafafa"}
+      },
+      "100": {
+        "$value": {"colorSpace": "srgb", "components": [0.96, 0.96, 0.96], "hex": "#f5f5f5"}
+      },
+      "200": {
+        "$value": {"colorSpace": "srgb", "components": [0.9, 0.9, 0.9], "hex": "#e5e5e5"}
+      },
+      "500": {
+        "$value": {"colorSpace": "srgb", "components": [0.45, 0.45, 0.45], "hex": "#737373"}
+      },
+      "800": {
+        "$value": {"colorSpace": "srgb", "components": [0.16, 0.16, 0.16], "hex": "#292929"}
+      },
+      "900": {
+        "$value": {"colorSpace": "srgb", "components": [0.09, 0.09, 0.09], "hex": "#171717"}
+      }
+    },
+    "white": {
+      "$value": {"colorSpace": "srgb", "components": [1, 1, 1], "hex": "#ffffff"}
+    },
+    "black": {
+      "$value": {"colorSpace": "srgb", "components": [0, 0, 0], "hex": "#000000"}
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "0": {"$value": {"value": 0, "unit": "px"}},
+    "1": {"$value": {"value": 4, "unit": "px"}},
+    "2": {"$value": {"value": 8, "unit": "px"}},
+    "3": {"$value": {"value": 12, "unit": "px"}},
+    "4": {"$value": {"value": 16, "unit": "px"}},
+    "6": {"$value": {"value": 24, "unit": "px"}},
+    "8": {"$value": {"value": 32, "unit": "px"}},
+    "12": {"$value": {"value": 48, "unit": "px"}},
+    "16": {"$value": {"value": 64, "unit": "px"}}
+  },
+  "fontSize": {
+    "$type": "dimension",
+    "xs": {"$value": {"value": 12, "unit": "px"}},
+    "sm": {"$value": {"value": 14, "unit": "px"}},
+    "base": {"$value": {"value": 16, "unit": "px"}},
+    "lg": {"$value": {"value": 18, "unit": "px"}},
+    "xl": {"$value": {"value": 20, "unit": "px"}},
+    "2xl": {"$value": {"value": 24, "unit": "px"}},
+    "3xl": {"$value": {"value": 30, "unit": "px"}}
+  },
+  "fontWeight": {
+    "$type": "fontWeight",
+    "normal": {"$value": 400},
+    "medium": {"$value": 500},
+    "semibold": {"$value": 600},
+    "bold": {"$value": 700}
+  },
+  "fontFamily": {
+    "$type": "fontFamily",
+    "sans": {"$value": ["Inter", "system-ui", "-apple-system", "sans-serif"]},
+    "mono": {"$value": ["JetBrains Mono", "Menlo", "Monaco", "monospace"]}
+  },
+  "duration": {
+    "$type": "duration",
+    "fast": {"$value": {"value": 100, "unit": "ms"}},
+    "normal": {"$value": {"value": 200, "unit": "ms"}},
+    "slow": {"$value": {"value": 300, "unit": "ms"}}
+  },
+  "easing": {
+    "$type": "cubicBezier",
+    "linear": {"$value": [0, 0, 1, 1]},
+    "ease": {"$value": [0.25, 0.1, 0.25, 1]},
+    "easeIn": {"$value": [0.42, 0, 1, 1]},
+    "easeOut": {"$value": [0, 0, 0.58, 1]},
+    "easeInOut": {"$value": [0.42, 0, 0.58, 1]}
+  },
+  "borderRadius": {
+    "$type": "dimension",
+    "none": {"$value": {"value": 0, "unit": "px"}},
+    "sm": {"$value": {"value": 2, "unit": "px"}},
+    "md": {"$value": {"value": 6, "unit": "px"}},
+    "lg": {"$value": {"value": 8, "unit": "px"}},
+    "full": {"$value": {"value": 9999, "unit": "px"}}
+  }
+}
