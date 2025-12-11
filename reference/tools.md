@@ -204,77 +204,121 @@ Terrazzo (https://terrazzo.app/) is a comprehensive token transformation tool.
 npm install -D @terrazzo/cli @terrazzo/plugin-css
 ```
 
-### Important: Terrazzo vs DTCG Resolvers
+### DTCG Resolver Support
 
-**Terrazzo does NOT directly support DTCG resolver.json files.** Instead, you must:
-1. List token files individually in `terrazzo.config.mjs`
-2. Use Terrazzo's `modeSelectors` for theme switching
+Terrazzo supports the DTCG Resolver specification for managing tokens across multiple contexts (themes, accessibility modes, responsive breakpoints, etc.). Instead of listing token files individually, you can use a resolver configuration.
 
-The DTCG resolver spec is useful for documentation and other tools, but Terrazzo has its own configuration approach.
-
-### Basic Configuration (terrazzo.config.mjs)
+### Basic Configuration with Resolver (terrazzo.config.mjs)
 
 ```javascript
 import { defineConfig } from "@terrazzo/cli";
 import pluginCSS from "@terrazzo/plugin-css";
 
 export default defineConfig({
-  tokens: [
-    "./tokens/primitives.tokens.json",
-    "./tokens/semantic.tokens.json",
-    "./tokens/themes/light.tokens.json"
-  ],
+  tokens: "./tokens.resolver.json",  // Point to resolver file
   outDir: "./dist/",
   plugins: [
     pluginCSS({
       filename: "tokens.css",
-      // Color output format
-      colorFormat: "hex",  // "hex" | "rgb" | "hsl" | "oklch" | "p3"
-      // Generate utility classes
-      utility: {
-        bg: ["color.background.*"],
-        text: ["color.text.*"],
-      },
+      colorFormat: "hex",
     }),
   ],
 });
 ```
 
-### Theme Switching with modeSelectors
+### Resolver File Structure (tokens.resolver.json)
 
-For dark mode and other themes, use `modeSelectors`:
+```json
+{
+  "version": "2025.10",
+  "sets": {
+    "foundation": {
+      "sources": [
+        { "$ref": "tokens/primitives.json" },
+        { "$ref": "tokens/semantic.json" }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "contexts": {
+        "light": [{ "$ref": "themes/light.json" }],
+        "dark": [{ "$ref": "themes/dark.json" }]
+      },
+      "default": "light"
+    }
+  },
+  "resolutionOrder": [
+    { "$ref": "#/sets/foundation" },
+    { "$ref": "#/modifiers/theme" }
+  ]
+}
+```
+
+### Context Selectors for CSS Output
+
+Map resolver contexts to CSS selectors using `contextSelectors` in the CSS plugin:
 
 ```javascript
 import { defineConfig } from "@terrazzo/cli";
 import pluginCSS from "@terrazzo/plugin-css";
 
 export default defineConfig({
-  tokens: [
-    "./tokens/primitives.tokens.json",
-    "./tokens/semantic.tokens.json",
-    // Include ALL theme files - Terrazzo reads $extensions.mode
-    "./tokens/themes/light.tokens.json",
-    "./tokens/themes/dark.tokens.json"
-  ],
+  tokens: "./tokens.resolver.json",
   outDir: "./dist/",
   plugins: [
     pluginCSS({
       filename: "tokens.css",
-      // Map modes to CSS selectors
-      modeSelectors: [
-        { mode: "light", selectors: [":root", "[data-theme='light']"] },
-        { mode: "dark", selectors: ["[data-theme='dark']", "@media (prefers-color-scheme: dark)"] },
+      contextSelectors: [
+        { selector: ":root", context: { theme: "light" } },
+        { selector: "[data-theme='dark']", context: { theme: "dark" } },
+        { selector: "@media (prefers-color-scheme: dark)", context: { theme: "dark" } },
       ],
     }),
   ],
 });
 ```
 
-### Token Files with Mode Extensions
+### Multiple Context Dimensions
 
-Mark theme tokens with `$extensions.mode`:
+Resolvers support multiple independent modifier dimensions:
 
-**tokens/themes/light.tokens.json**
+```json
+{
+  "modifiers": {
+    "theme": {
+      "contexts": {
+        "light": [{ "$ref": "themes/light.json" }],
+        "dark": [{ "$ref": "themes/dark.json" }]
+      },
+      "default": "light"
+    },
+    "density": {
+      "contexts": {
+        "comfortable": [{ "$ref": "density/comfortable.json" }],
+        "compact": [{ "$ref": "density/compact.json" }]
+      },
+      "default": "comfortable"
+    }
+  }
+}
+```
+
+Map combinations in CSS:
+
+```javascript
+contextSelectors: [
+  { selector: ":root", context: { theme: "light", density: "comfortable" } },
+  { selector: "[data-theme='dark']", context: { theme: "dark" } },
+  { selector: ".compact", context: { density: "compact" } },
+]
+```
+
+### Legacy Mode Support
+
+Terrazzo maintains backwards compatibility with the older `$extensions.mode` syntax through a special `tzMode` namespace mapping. If you have existing token files using this pattern, they will continue to work:
+
+**tokens/themes/light.tokens.json** (legacy approach)
 ```json
 {
   "$extensions": {
@@ -291,22 +335,7 @@ Mark theme tokens with `$extensions.mode`:
 }
 ```
 
-**tokens/themes/dark.tokens.json**
-```json
-{
-  "$extensions": {
-    "mode": "dark"
-  },
-  "color": {
-    "background": {
-      "$type": "color",
-      "page": {
-        "$value": { "colorSpace": "srgb", "components": [0.07, 0.07, 0.07], "hex": "#121212" }
-      }
-    }
-  }
-}
-```
+For new projects, the resolver approach is recommended as it provides better organization and follows the DTCG specification.
 
 ### colorFormat Options
 
