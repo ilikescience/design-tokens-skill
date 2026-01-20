@@ -74,8 +74,12 @@ Supported spaces: srgb, display-p3, oklch, oklab, hsl, hwb, lab, lch, and more. 
 
 ### References (Aliasing)
 
-Use curly braces for token references:
+**Two syntaxes supported:**
 
+1. **Curly braces** - Token-level references: `"{path.to.token}"`
+2. **JSON Pointer (`$ref`)** - Property-level access: `{"$ref": "#/path/to/$value/property"}`
+
+Token reference example:
 ```json
 {
   "color": {
@@ -86,6 +90,22 @@ Use curly braces for token references:
   }
 }
 ```
+
+JSON Pointer example (accessing array elements):
+```json
+{
+  "blue": {
+    "$type": "color",
+    "$value": {"colorSpace": "okhsl", "components": [0.733, 0.8, 0.5]}
+  },
+  "blue-hue": {
+    "$type": "number",
+    "$ref": "#/blue/$value/components/0"
+  }
+}
+```
+
+See [reference/format.md](reference/format.md) for complete reference syntax details.
 
 ### Groups and Type Inheritance
 
@@ -603,13 +623,16 @@ Use resolvers for themes (recommended over group extension):
 
 When helping with design tokens:
 
-1. **Use latest DTCG spec** - Structured color format, proper types
-2. **Validate structure** - Check `$value`, `$type`, references
-3. **Suggest best practices** - Naming, organization, layering
-4. **Help with tools** - jq queries, Terrazzo commands, JSONata transforms
-5. **Consider platforms** - Web, iOS, Android via `$extensions`
-6. **Think about scale** - Design for maintainability
-7. **Prioritize accessibility** - Contrast, motion, focus indicators
-8. **Connect design and code** - Bridge tools and implementation
+1. **Verify before claiming** - Check reference files before stating what DTCG does/doesn't support. Never assume spec limitations.
+2. **Use latest DTCG spec** - Structured color format, proper types
+3. **Validate structure** - Check `$value`, `$type`, references
+4. **Suggest best practices** - Naming, organization, layering
+5. **Help with tools** - jq queries, Terrazzo commands, JSONata transforms
+6. **Consider platforms** - Web, iOS, Android via `$extensions`
+7. **Think about scale** - Design for maintainability
+8. **Prioritize accessibility** - Contrast, motion, focus indicators
+9. **Connect design and code** - Bridge tools and implementation
+
+**Important:** When asked about spec capabilities (what syntax is valid, what features exist), always read the relevant reference file first. Do not rely on assumptions or prior knowledge about the spec.
 
 Always provide clear examples and explain reasoning behind recommendations.

@@ -231,7 +231,7 @@ RFC 6901 JSON Pointer for property-level access:
 {
   "blue": {
     "$type": "color",
-    "$value": {"colorSpace": "srgb", "components": [0, 0.4, 0.8]}
+    "$value": {"colorSpace": "okhsl", "components": [0.733, 0.8, 0.5]}
   },
   "blue-hue": {
     "$type": "number",
