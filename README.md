@@ -14,6 +14,14 @@ When activated, Claude becomes an expert in:
 
 ## Installation
 
+### Skills Marketplace (recommended)
+
+```bash
+npx skills add https://github.com/ilikescience/design-tokens-skill --skill design-tokens
+```
+
+### Manual
+
 Copy the entire skill folder to your Claude Code skills directory:
 
 ```bash
